@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sous Silence - Critiques et Avis</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Raleway:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --steampunk-gold: #c5a059;
+            --steampunk-dark: #2b1d12;
+            --steampunk-copper: #8b4513;
+        }
+
+        body {
+            background-color: #1a120b;
+            color: #e0d7c6;
+            font-family: 'Raleway', sans-serif;
+            background-image: linear-gradient(rgba(26, 18, 11, 0.9), rgba(26, 18, 11, 0.9)), 
+                              url('https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&q=80&w=2000');
+            background-attachment: fixed;
+            background-size: cover;
+        }
+
+        h1, h2, h3, .font-steampunk {
+            font-family: 'Cinzel', serif;
+        }
+
+        .gold-border {
+            border: 2px solid var(--steampunk-gold);
+            box-shadow: 0 0 15px rgba(197, 160, 89, 0.3);
+        }
+
+        .star-rating {
+            display: flex;
+            flex-direction: row-reverse;
+            justify-content: flex-end;
+        }
+
+        .star-rating input { display: none; }
+
+        .star-rating label {
+            font-size: 2rem;
+            color: #444;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .star-rating label:hover,
+        .star-rating label:hover ~ label,
+        .star-rating input:checked ~ label {
+            color: var(--steampunk-gold);
+        }
+
+        .comment-card {
+            background: rgba(43, 29, 18, 0.6);
+            backdrop-filter: blur(5px);
+            border-left: 4px solid var(--steampunk-gold);
+        }
+
+        .btn-steampunk {
+            background: linear-gradient(135deg, var(--steampunk-copper), var(--steampunk-gold));
+            color: black;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn-steampunk:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(197, 160, 89, 0.5);
+        }
+    </style>
+</head>
+<body class="min-h-screen pb-12">
+
+    <!-- Header Section -->
+    <header class="py-12 text-center">
+        <h1 class="text-5xl md:text-7xl mb-4 text-[#c5a059] drop-shadow-lg">SOUS SILENCE</h1>
+        <p class="text-xl italic opacity-80">Un film de Samuel Bouchard</p>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8">
+        
+        <!-- Sidebar: Film Info -->
+        <div class="md:col-span-1">
+            <div class="gold-border p-4 rounded-lg bg-black/40 mb-6">
+                <img src="https://images.unsplash.com/photo-1533134486753-c833f0ed4866?auto=format&fit=crop&q=80&w=800" alt="[Affiche alternative]" class="w-full rounded mb-4">
+                <div class="space-y-4">
+                    <div>
+                        <h3 class="text-gold-500 font-bold border-b border-gold-900/50 pb-1 mb-2">CRÉDITS</h3>
+                        <p class="text-sm"><span class="text-gray-400">Production:</span> Sora & Vegas Pro 22</p>
+                        <p class="text-sm"><span class="text-gray-400">Musique:</span> Unpaid Musicians</p>
+                    </div>
+                    <div id="global-rating-container" class="text-center pt-4 border-t border-gold-900/50">
+                        <p class="text-lg mb-1">Note Globale</p>
+                        <div id="average-stars" class="text-2xl text-yellow-500 mb-1">★★★★★</div>
+                        <p id="total-votes" class="text-xs text-gray-400">0 votes</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content: Reviews -->
+        <div class="md:col-span-2">
+            
+            <!-- Review Form -->
+            <section class="gold-border p-6 rounded-lg bg-black/40 mb-8">
+                <h2 class="text-2xl mb-4">Laisser votre avis</h2>
+                <form id="review-form" class="space-y-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <input type="text" id="username" placeholder="Votre nom" required 
+                               class="bg-black/40 border border-[#c5a059]/30 rounded p-2 focus:outline-none focus:border-[#c5a059]">
+                        
+                        <div class="star-rating">
+                            <input type="radio" id="star5" name="rating" value="5" required/><label for="star5">★</label>
+                            <input type="radio" id="star4" name="rating" value="4"/><label for="star4">★</label>
+                            <input type="radio" id="star3" name="rating" value="3"/><label for="star3">★</label>
+                            <input type="radio" id="star2" name="rating" value="2"/><label for="star2">★</label>
+                            <input type="radio" id="star1" name="rating" value="1"/><label for="star1">★</label>
+                        </div>
+                    </div>
+                    <textarea id="comment" placeholder="Qu'avez-vous pensé du film ?" rows="3" required
+                              class="w-full bg-black/40 border border-[#c5a059]/30 rounded p-2 focus:outline-none focus:border-[#c5a059]"></textarea>
+                    <button type="submit" class="btn-steampunk w-full py-3 rounded">Envoyer l'avis</button>
+                </form>
+            </section>
+
+            <!-- Reviews List -->
+            <section>
+                <h2 class="text-2xl mb-6 flex items-center gap-4">
+                    Commentaires 
+                    <span id="comment-count" class="text-sm bg-[#c5a059] text-black px-2 py-1 rounded-full">0</span>
+                </h2>
+                <div id="reviews-container" class="space-y-4">
+                    <!-- Les commentaires s'afficheront ici -->
+                    <p id="no-reviews" class="italic text-gray-500 text-center py-8">Aucun commentaire pour le moment. Soyez le premier à donner votre avis !</p>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script>
+        // Initialisation des données
+        let reviews = JSON.parse(localStorage.getItem('sous_silence_reviews')) || [];
+
+        const form = document.getElementById('review-form');
+        const container = document.getElementById('reviews-container');
+        const commentCount = document.getElementById('comment-count');
+        const averageStars = document.getElementById('average-stars');
+        const totalVotes = document.getElementById('total-votes');
+        const noReviewsText = document.getElementById('no-reviews');
+
+        function updateUI() {
+            // Vider le conteneur (sauf le message vide)
+            container.innerHTML = '';
+            
+            if (reviews.length === 0) {
+                container.appendChild(noReviewsText);
+                noReviewsText.classList.remove('hidden');
+                averageStars.innerText = '☆☆☆☆☆';
+                totalVotes.innerText = '0 votes';
+                commentCount.innerText = '0';
+                return;
+            }
+
+            noReviewsText.classList.add('hidden');
+            let sum = 0;
+
+            reviews.slice().reverse().forEach(review => {
+                sum += review.rating;
+                const card = document.createElement('div');
+                card.className = 'comment-card p-4 rounded-r-lg mb-4 animate-fade-in';
+                
+                const stars = '★'.repeat(review.rating) + '☆'.repeat(5 - review.rating);
+                
+                card.innerHTML = `
+                    <div class="flex justify-between items-start mb-2">
+                        <span class="font-bold text-[#c5a059]">${escapeHtml(review.username)}</span>
+                        <span class="text-yellow-500">${stars}</span>
+                    </div>
+                    <p class="text-gray-300">${escapeHtml(review.comment)}</p>
+                    <div class="text-[10px] text-gray-500 mt-2 text-right">${review.date}</div>
+                `;
+                container.appendChild(card);
+            });
+
+            // Mise à jour de la moyenne
+            const avg = (sum / reviews.length).toFixed(1);
+            const fullStars = Math.round(avg);
+            averageStars.innerText = '★'.repeat(fullStars) + '☆'.repeat(5 - fullStars) + ` (${avg})`;
+            totalVotes.innerText = `${reviews.length} vote(s)`;
+            commentCount.innerText = reviews.length;
+        }
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const comment = document.getElementById('comment').value;
+            const rating = parseInt(form.querySelector('input[name="rating"]:checked').value);
+            
+            const newReview = {
+                username,
+                comment,
+                rating,
+                date: new Date().toLocaleString('fr-FR')
+            };
+
+            reviews.push(newReview);
+            localStorage.setItem('sous_silence_reviews', JSON.stringify(reviews));
+            
+            form.reset();
+            updateUI();
+
+            // Feedback visuel simple
+            const btn = form.querySelector('button');
+            const originalText = btn.innerText;
+            btn.innerText = "Merci pour votre avis !";
+            setTimeout(() => btn.innerText = originalText, 3000);
+        });
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Chargement initial
+        updateUI();
+    </script>
+
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+    </style>
+</body>
+</html>
